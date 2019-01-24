@@ -1,3 +1,7 @@
+HOST = "localhost"
+PORT = "80"
+
+
 function createResultElement(title, thumbUrl, youtubeVideoId) {
 
     let resultElem = document.createElement('div')
@@ -61,20 +65,24 @@ let videoPlayer
 
 // gets called when Youtube Player API is ready to use
 window.onYouTubePlayerAPIReady = function() {
-    console.log('Youtube Player Ready')
+    console.log('Youtube Player Ready!')
     // create the global player from the specific iframe (#video)
     videoPlayer = new YT.Player('video')
 }
 
 function showPlayer() {
-    document.getElementById('video').style.height = '300px'
+    document.getElementById('video').style.height = '65%'
     document.getElementById('result-container').style.height = '0'
+    document.getElementById('video').style.borderTop = '4px solid cadetblue'
+    document.getElementById('video').style.borderBottom = '4px solid cadetblue'
 
 }
 
 function hidePlayer() {
     document.getElementById('video').style.height = '0'
-    document.getElementById('result-container').style.height = '300px'
+    document.getElementById('result-container').style.height = '65%'
+    document.getElementById('video').style.borderTop = 'none'
+    document.getElementById('video').style.borderBottom = 'none'
 }
 
 
@@ -86,7 +94,7 @@ document.getElementById('btnSearch').onclick = function () {
     document.getElementById('result-container').innerHTML = ""
 
     // send a search request to server
-    let requestURL = "/search?keywords=" + document.getElementById('txtSearch').value.replace(' ', '%20') + '%20karaoke'
+    let requestURL = "http://" + HOST + ":" + PORT + "/search?keywords=" + document.getElementById('txtSearch').value.replace(' ', '%20') + '%20karaoke'
 
     httpRequest(requestURL, (response) => {
 
@@ -105,13 +113,14 @@ document.getElementById('btnSearch').onclick = function () {
 
     })
 
+
 }
 
 // record/stop button #############################################################################################################
+var btnStartStop = document.getElementById("btnStartStop")
+btnStartStop.onclick = () => {
 
-document.getElementById("btnStartStop").onclick = () => {
-
-    if (document.getElementById("btnStartStop").disabled != true) {
+    if (btnStartStop.disabled != true) {
 
         // stop recording
         if (videoPlayer.isPlaying) {
@@ -250,7 +259,7 @@ document.getElementById('btnReplay').onclick = () => {
                     sourceNode = audioContext.createBufferSource()
                     sourceNode.buffer = voiceAudioBuffer
                     let gainNode = audioContext.createGain()
-                    gainNode.gain.value = 10
+                    gainNode.gain.value = 8
                     sourceNode.connect(gainNode)
                     gainNode.connect(audioContext.destination)
                     sourceNode.start()
