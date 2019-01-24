@@ -90,7 +90,7 @@ document.getElementById('btnSearch').onclick = function () {
     document.getElementById('result-container').innerHTML = ""
 
     // send a search request to server
-    let requestURL = "http://" + HOST + ":" + PORT + "/search?keywords=" + document.getElementById('txtSearch').value.replace(' ', '%20') + '%20karaoke'
+    let requestURL = "/search?keywords=" + document.getElementById('txtSearch').value.replace(' ', '%20') + '%20karaoke'
 
     httpRequest(requestURL, (response) => {
 
