@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <title>KaraokeHunt</title>
+    <link rel="stylesheet" href="master.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <header>
+        <h1 id="header-title">KaraokeHunt.com</h1>
+    </header>
+
+    <section>
+
+        <div id="track-search-container">
+
+            <form action="#">
+                <input id="txtSearch" type="text" placeholder="Song Title..." value="obe sina langa">
+                <input id="btnSearch" type="submit" value="Search">
+            </form>
+            <div id="result-container">
+                <!-- search results go here -->
+            </div>
+        </div>
+
+
+    </section>
+
+
+    <canvas id="visualizer" height="1000" width="2000"></canvas>
+
+    <!-- Make sure ?enablejsapi=1 is on URL -->
+    <iframe id="video" src="https://www.youtube.com/embed/?enablejsapi=1&html5=1&modestbranding=1&autohide=2" frameborder="0" allowfullscreen></iframe>
+
+    <div id="control-container">
+        <input type="button" id="btnStartStop" value="Record" disabled>
+        <input type="button" id="btnReplay" value="Replay" disabled>
+    </div>
+
+
+    <script src="Recorder.js"></script>
+    <script src="Visualizer.js"></script>
+    <script src="index.js"></script>
+    <script src="https://www.youtube.com/player_api"></script>
+
+</body>
+
+</html>

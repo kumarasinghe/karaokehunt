@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Staatliches');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+*{
+    font-family: 'Roboto';
+    transition: all 150ms;
+    outline: none;
+}
+
+input[type="button"], input[type="submit"]{
+    cursor: pointer;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover{
+    box-shadow: inset 0 0 5px 100px rgba(0, 0, 0, .15);
+}
+
+body{
+    margin: 0;
+}
+
+header{
+    width:100%;
+    box-shadow: 0 0 15px gainsboro;
+}
+
+#header-title{
+    font-family: 'Staatliches';
+    padding: 10px;
+    color: cadetblue;
+    font: outline;
+}
