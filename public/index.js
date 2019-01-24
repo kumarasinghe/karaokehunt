@@ -1,7 +1,3 @@
-HOST = "localhost"
-PORT = "80"
-
-
 function createResultElement(title, thumbUrl, youtubeVideoId) {
 
     let resultElem = document.createElement('div')
