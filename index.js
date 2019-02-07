@@ -1,4 +1,4 @@
-const port = 80
+const port = 8080
 const YouTubeAPIKey = 'AIzaSyCYjnfaygBncxrxYzD4F-hb4poKZHCxD8g'
 
 const request = require('request')
@@ -6,7 +6,7 @@ const express = require('express')
 const server = express()
 
 
-server.use(express.static('public'))
+server.use(express.static('/root/karaokehunt.com/public'))
 server.listen(port)
 console.log('Listening to port ' + port + '...')
 
