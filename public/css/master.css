@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Staatliches');
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
+html{
+    zoom: 115%;
+}
+
 *{
     font-family: 'Lato';
     transition: all 150ms;
