@@ -1,4 +1,0 @@
-node index.js &>> log &
-echo $! > .pid
-sleep 2
-tail -n1 log
