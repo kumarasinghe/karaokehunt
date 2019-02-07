@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Staatliches');
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 *{
-    font-family: 'Roboto';
+    font-family: 'Lato';
     transition: all 150ms;
     outline: none;
+}
+
+body{
+    background-color: whitesmoke;
 }
 
 input[type="button"], input[type="submit"]{
@@ -21,12 +25,21 @@ body{
 
 header{
     width:100%;
-    box-shadow: 0 0 15px gainsboro;
+    background-color: #553778;
+    text-align: center;
+    padding: .7rem 0;
 }
 
 #header-title{
     font-family: 'Staatliches';
-    padding: 10px;
-    color: cadetblue;
-    font: outline;
+    font-size: 3rem;
+    color: fff;
+}
+
+#header-tagline{
+    font-family: 'Lato';
+    font-size: .9em;
+    color: fff;
+    display: block;
+    margin-top: -.5rem;
 }

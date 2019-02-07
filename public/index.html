@@ -9,16 +9,15 @@
 <body>
 
     <header>
-        <h1 id="header-title">KaraokeHunt.com</h1>
+        <span id="header-title">KaraokeHunt.com</span>
+        <span id="header-tagline">Discover Your Inner Star</span>
     </header>
 
     <section>
 
         <div id="track-search-container">
-
             <form action="#">
-                <input id="txtSearch" type="text" placeholder="Song Title..." value="obe sina langa">
-                <input id="btnSearch" type="submit" value="Search">
+                <input id="txtSearch" type="text" placeholder="Search Karaoke..." value="obe sina langa"><input id="btnSearch" type="submit" value="Search">
             </form>
             <div id="result-container">
                 <!-- search results go here -->
@@ -40,6 +39,7 @@
     </div>
 
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="js/Recorder.js"></script>
     <script src="js/Visualizer.js"></script>
     <script src="js/config.js"></script>

@@ -1,14 +1,25 @@
+// Welcome Alert
+swal({
+    title: "Got a head set?",
+    text: "Connect a head set and refrsh the page for the best results. Please note this website only works on laptops for the moment. Cheers!",
+    icon: "info",
+    button: "OK",
+  });
+
 function createResultElement(title, thumbUrl, youtubeVideoId) {
 
-    let resultElem = document.createElement('div')
-    let titleElement = document.createElement('span')
-    let thumbElement = document.createElement('img')
 
-    titleElement.innerHTML = title
-    thumbElement.src = thumbUrl
-    resultElem.setAttribute('class', 'result')
+    let resultElement = document.createElement('img')
 
-    resultElem.onclick = () => {
+    resultElement.src = thumbUrl
+    resultElement.title = title
+
+    resultElement.setAttribute('class', 'result')
+
+    resultElement.onclick = () => {
+
+        deselectResults()
+        resultElement.style.opacity = 1
 
         // set video player url
         document.getElementById('video').src = 'https://www.youtube.com/embed/' + youtubeVideoId + '?enablejsapi=1&html5=1&modestbranding=1&autohide=2'
@@ -21,12 +32,25 @@ function createResultElement(title, thumbUrl, youtubeVideoId) {
         document.getElementById('btnReplay').disabled = true
         document.getElementById('btnReplay').style.backgroundColor = 'gainsboro'
 
+        // show control box
+        document.getElementById('control-container').style.visibility = 'visible'
     }
 
-    resultElem.appendChild(titleElement)
-    resultElem.appendChild(document.createElement('br'))
-    resultElem.appendChild(thumbElement)
-    return resultElem
+
+    return resultElement
+
+}
+
+function deselectResults(){
+
+    let resultElements =  document.querySelectorAll('.result')
+
+    for(let i=0; i<resultElements.length; ++i){
+
+        let resultElem = resultElements[i]
+        resultElem.style.opacity = 0.5
+
+    }
 
 }
 
@@ -67,18 +91,13 @@ window.onYouTubePlayerAPIReady = function() {
 }
 
 function showPlayer() {
-    document.getElementById('video').style.height = '65%'
+    document.getElementById('video').style.height = '360px'
     document.getElementById('result-container').style.height = '0'
-    document.getElementById('video').style.borderTop = '4px solid cadetblue'
-    document.getElementById('video').style.borderBottom = '4px solid cadetblue'
-
 }
 
 function hidePlayer() {
     document.getElementById('video').style.height = '0'
-    document.getElementById('result-container').style.height = '65%'
-    document.getElementById('video').style.borderTop = 'none'
-    document.getElementById('video').style.borderBottom = 'none'
+    document.getElementById('result-container').style.height = '360px'
 }
 
 
@@ -106,6 +125,7 @@ document.getElementById('btnSearch').onclick = function () {
             )
 
         }
+        
 
     })
 

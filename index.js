@@ -1,5 +1,5 @@
 const port = 8080
-const YouTubeAPIKey = 'AIzaSyCYjnfaygBncxrxYzD4F-hb4poKZHCxD8g'
+const YouTubeAPIKey = 'AIzaSyA_A7e2jZb6J7CiCI0cE7RxJnh-pUrxKUo'
 
 const request = require('request')
 const express = require('express')

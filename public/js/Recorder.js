@@ -60,6 +60,9 @@ class Recorder {
                     this.readyCallback()
                 }
             })
+            .catch(function(err) {
+                swal("Mic Access Denied", "Please reload the page and grant access to your microphone", "error")
+            })
     }
 
     start() {

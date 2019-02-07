@@ -1,17 +1,9 @@
 #track-search-container{
 
-    background-color: whitesmoke;
     display: block;
-    max-width: 480px;
+    max-width: 600px;
     padding: 15px;
     margin: auto;
-    border-radius: 5px;
-
-}
-
-#track-search-container>form{
-
-    display: flex;
 
 }
 
@@ -22,57 +14,47 @@
     border-bottom-left-radius: 10px;
     padding: 10px;
     font-size: 15px;
-    font-weight: bold;
-    flex:1;
+    display: inline-block;
+    padding: 8px 10px;
+    width: 80%;
 
 }
 
 #btnSearch{
 
     border: none;
-    background-color: cadetblue;
-    color: white;
+    background-color: #fff;
+    color: #553778;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     font-size: 15px;
     font-weight: bold;
-    padding: 0 10px;
+    padding: 8px 10px;
+    display: inline-block;
+    width: 20%;
 
 }
 
 #result-container{
+
     overflow-y: scroll;
-    max-height: 300px;
-    background-color: rgb(250, 250, 250);
-    box-shadow: inset 0 0 10px rgb(206, 206, 206);
     transition: height 1s;
+    text-align: center;
+
 }
 
 .result{
 
-    display:block;
-    padding: 12px;
-    border-bottom: 2px solid rgb(238, 238, 238);
-
+    width: 200px;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+    margin: .5rem;
+    cursor: pointer;
 }
 
 .result:hover{
 
-    background-color: gainsboro;
-
-}
-
-.result>img{
-
-    border-radius: 5px;
-    margin-top: 5px;
-
-}
-
-.result>span{
-
-    color: cadetblue;
-    font-weight: 400;
+    filter: brightness(2);
 
 }
 
@@ -94,38 +76,27 @@ iframe{
     pointer-events: none;
     display: block;
     margin: auto;
-    width: 100%;
+    width: 640px;
     height: 0;
     transition: height 1s;
 
 }
 
 #control-container{
-
-    width: 480px;
-    background-color: white;
-    display: flex;
-    position: absolute;
-    bottom: 0;
-    left: 0; 
-    right: 0; 
-    padding: 15px;
-    margin-left: auto; 
-    margin-right: auto; 
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    box-shadow: 0 0 35px gainsboro;
+    visibility:hidden;
+    display: block;
+    text-align: center;
+    margin:1.5rem;
 
 }
 
 #control-container > input{
 
-    flex:1;
+    display: inline-block;
     border: none;
-    height: 50px;
-    font-weight: bold;
+    height: 40px;
     font-size: 15px;
-
+    width: 100px;
 }
 
 #btnStartStop{
