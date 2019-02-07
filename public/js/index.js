@@ -255,7 +255,7 @@ document.getElementById('btnReplay').onclick = () => {
                     sourceNode = audioContext.createBufferSource()
                     sourceNode.buffer = voiceAudioBuffer
                     let gainNode = audioContext.createGain()
-                    gainNode.gain.value = 8
+                    gainNode.gain.value = GAIN_PLAYBACK
                     sourceNode.connect(gainNode)
                     gainNode.connect(audioContext.destination)
                     sourceNode.start()

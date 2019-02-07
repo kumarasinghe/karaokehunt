@@ -3,11 +3,13 @@ const YouTubeAPIKey = 'AIzaSyCYjnfaygBncxrxYzD4F-hb4poKZHCxD8g'
 
 const request = require('request')
 const express = require('express')
+const path = require('path')
 const server = express()
 
-
-server.use(express.static('/root/karaokehunt.com/public'))
+const PUBLIC_DIR = path.join(__dirname, '/public')
+server.use(express.static(PUBLIC_DIR))
 server.listen(port)
+
 console.log('Listening to port ' + port + '...')
 
 
