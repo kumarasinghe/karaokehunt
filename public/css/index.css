@@ -40,7 +40,8 @@
     overflow-y: scroll;
     transition: height 1s;
     text-align: center;
-
+    background-color: rgba(0,0,0,.03);
+    
 }
 
 .result{

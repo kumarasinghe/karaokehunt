@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaraokeHunt</title>
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/playback.css">
+</head>
+
+<body>
+
+    <header>
+        <span id="header-title">KaraokeHunt.com</span>
+        <span id="header-tagline">Discover Your Inner Star</span>
+    </header>
+
+    <canvas id="visualizer" height="1000" width="2000"></canvas>
+
+    <!-- Make sure ?enablejsapi=1 is on URL -->
+    <iframe id="video" src="https://www.youtube.com/embed/?enablejsapi=1&html5=1&modestbranding=1&autohide=2"
+        frameborder="0" allowfullscreen></iframe>
+
+    <div id="control-container">
+        <input type="button" id="btnPlayStop" value="Play" onclick="playStop()">
+    </div>
+
+
+    <script src="js/Visualizer.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/playback.js"></script>
+    <script src="https://www.youtube.com/player_api"></script>
+
+</body>
+
+</html>

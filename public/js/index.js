@@ -4,7 +4,9 @@ swal({
     text: "Connect a head set and refrsh the page for the best results. Please note this website only works on laptops for the moment. Cheers!",
     icon: "info",
     button: "OK",
-  });
+});
+
+var currentVideoID
 
 function createResultElement(title, thumbUrl, youtubeVideoId) {
 
@@ -17,6 +19,8 @@ function createResultElement(title, thumbUrl, youtubeVideoId) {
     resultElement.setAttribute('class', 'result')
 
     resultElement.onclick = () => {
+
+        currentVideoID = youtubeVideoId
 
         deselectResults()
         resultElement.style.opacity = 1
@@ -41,11 +45,11 @@ function createResultElement(title, thumbUrl, youtubeVideoId) {
 
 }
 
-function deselectResults(){
+function deselectResults() {
 
-    let resultElements =  document.querySelectorAll('.result')
+    let resultElements = document.querySelectorAll('.result')
 
-    for(let i=0; i<resultElements.length; ++i){
+    for (let i = 0; i < resultElements.length; ++i) {
 
         let resultElem = resultElements[i]
         resultElem.style.opacity = 0.5
@@ -84,7 +88,7 @@ function httpRequest(url, callback, isBuffer) {
 let videoPlayer
 
 // gets called when Youtube Player API is ready to use
-window.onYouTubePlayerAPIReady = function() {
+window.onYouTubePlayerAPIReady = function () {
     console.log('Youtube Player Ready!')
     // create the global player from the specific iframe (#video)
     videoPlayer = new YT.Player('video')
@@ -108,6 +112,16 @@ document.getElementById('btnSearch').onclick = function () {
     // clear existing results
     document.getElementById('result-container').innerHTML = ""
 
+    // hide player if its shown
+    if (videoPlayer.isPlaying) {
+        videoPlayer.isPlaying = false
+        videoPlayer.stopVideo()
+        btnStartStop.value = "Record"
+        // collapse video player
+        hidePlayer()
+        stopVoiceRecording()
+    }
+
     // send a search request to server
     let requestURL = "/search?keywords=" + document.getElementById('txtSearch').value.replace(' ', '%20') + '%20karaoke'
 
@@ -125,7 +139,7 @@ document.getElementById('btnSearch').onclick = function () {
             )
 
         }
-        
+
 
     })
 
@@ -191,16 +205,23 @@ function startVoiceRecording() {
 }
 
 
-let audioContext = new AudioContext();
+let audioContext = new AudioContext()
 let voiceAudioBuffer
 
 function stopVoiceRecording() {
 
     stopVisuaizer()
-    voiceRecorder.stop((audioURL) => {
+    voiceRecorder.stop((audioURL, audioBlob, audioChunks) => {
+
+        // upload recording to the server
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST', '/upload', true)
+        var formData = new FormData();
+        formData.append("videoID", currentVideoID);
+        formData.append("voiceTrack", audioBlob);
+        xhr.send(formData)
 
         console.log('Voice recording stopped!')
-
 
         httpRequest(audioURL, (audioData) => {
 
@@ -211,7 +232,7 @@ function stopVoiceRecording() {
                 document.getElementById('btnReplay').style.backgroundColor = "#4CBB17"
 
             }, (e) => {
-                console.log("Error with decoding audio data" + e.err)
+                console.error("Error with decoding audio data" + e.err)
             })
 
         }, true)
@@ -251,7 +272,7 @@ document.getElementById('btnReplay').onclick = () => {
     if (!document.getElementById("btnReplay").disabled) {
 
         // start replay
-        if (videoPlayer.isPlaying == false) {
+        if (videoPlayer.isPlaying != true) {
             videoPlayer.playVideo()
             videoPlayer.isPlaying = true
             document.getElementById('btnReplay').value = "Stop Replay"

@@ -47,11 +47,12 @@ class Recorder {
                 })
 
                 this.mediaRecorder.addEventListener("stop", () => {
-                    this.audioBlob = new Blob(this.audioChunks)
+
+                    this.audioBlob = new Blob(this.audioChunks, { 'type' : 'audio/ogg; codecs=opus' })
 
                     if (this.recordCompleteCallback) {
                         this.audioUrl = URL.createObjectURL(this.audioBlob)
-                        this.recordCompleteCallback(this.audioUrl)
+                        this.recordCompleteCallback(this.audioUrl, this.audioBlob, this.audioChunks)
                     }
 
                 })
@@ -60,7 +61,7 @@ class Recorder {
                     this.readyCallback()
                 }
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 swal("Mic Access Denied", "Please reload the page and grant access to your microphone", "error")
             })
     }
@@ -106,7 +107,7 @@ class Recorder {
 
     }
 
-    setRecordingDevice(deviceId){
+    setRecordingDevice(deviceId) {
         this.recordingDeviceId = deviceId
     }
 
