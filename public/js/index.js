@@ -139,6 +139,8 @@ if (sessionData != undefined) {
 
     }
 
+    document.getElementById('session-container').style.visibility = 'visible'
+
 }
 else {
     sessionData = []
@@ -275,6 +277,9 @@ function stopVoiceRecording() {
     stopVisuaizer()
     voiceRecorder.stop((audioURL, audioBlob, audioChunks) => {
 
+        console.log('Voice recording stopped!')
+
+
         // upload voice track to server and generate a session for playback
         var formData = new FormData()
         formData.append("videoID", currentVideoID)
@@ -282,7 +287,7 @@ function stopVoiceRecording() {
 
         httpPOSTRequest('/upload', formData, (playbackID) => {
 
-            // add session to local storage
+            // add karaoke session to local storage for later playback
             sessionData.push([playbackID, currentVideoTitle, currentVideoImageURL])
             localStorage['sessionData'] = JSON.stringify(sessionData)
 
@@ -294,47 +299,10 @@ function stopVoiceRecording() {
             )
 
             document.getElementById('session-list').appendChild(sessionElem)
-
+            document.getElementById('session-container').style.visibility = 'visible'
         })
 
-
-        // // upload recording to the server
-        // var xhr = new XMLHttpRequest()
-        // xhr.open('POST', '/upload', true)
-        // var formData = new FormData()
-        // formData.append("videoID", currentVideoID)
-        // formData.append("voiceTrack", audioBlob)
-
-        // // server reply with playback id
-        // xhr.onreadystatechange = () => {
-
-        //     if (xhr.readyState == XMLHttpRequest.DONE) {
-
-        //         let playbackID = xhr.responseText
-
-        //         // add session to local storage
-        //         sessionData.push([playbackID, currentVideoTitle, currentVideoImageURL])
-        //         localStorage['sessionData'] = JSON.stringify(sessionData)
-
-        //         // show new session element to the user
-        //         let sessionElem = createSessionElemenet(
-        //             playbackID,             // session ID
-        //             currentVideoTitle,      // session title
-        //             currentVideoImageURL    // session image
-        //         )
-
-        //         document.getElementById('session-list').appendChild(sessionElem)
-
-        //     }
-        // }
-
-        // xhr.send(formData)
-
-
-        // record session
-
-        console.log('Voice recording stopped!')
-
+        // prepare for playback
         httpGETRequest(audioURL, (audioData) => {
 
             audioContext.decodeAudioData(audioData, (audioBuffer) => {
