@@ -1,11 +1,3 @@
-// Welcome Alert
-swal({
-    title: "Got a head set?",
-    text: "Connect a head set and refrsh the page for the best results. Please note this website only works on laptops for the moment. Cheers!",
-    icon: "info",
-    button: "OK",
-});
-
 var currentVideoID
 
 function createResultElement(title, thumbUrl, youtubeVideoId) {
@@ -21,6 +13,8 @@ function createResultElement(title, thumbUrl, youtubeVideoId) {
     resultElement.onclick = () => {
 
         currentVideoID = youtubeVideoId
+        currentVideoTitle = title
+        currentVideoImageURL = thumbUrl
 
         deselectResults()
         resultElement.style.opacity = 1
@@ -59,7 +53,7 @@ function deselectResults() {
 }
 
 
-function httpRequest(url, callback, isBuffer) {
+function httpGETRequest(url, callback, isBuffer) {
 
     var req = new XMLHttpRequest()
 
@@ -80,6 +74,74 @@ function httpRequest(url, callback, isBuffer) {
 
     req.send()
 
+}
+
+
+function httpPOSTRequest(url, formData, callback) {
+
+
+    var xhr = new XMLHttpRequest()
+    xhr.open('POST', url, true)
+
+    xhr.onreadystatechange = () => {
+
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            callback(xhr.response)
+        }
+    }
+
+    xhr.send(formData)
+
+}
+
+
+// Load previous sessions ########################################################################################################
+
+function createSessionElemenet(sessionID, sessionTitle, sessionImageURL) {
+
+    let titleElem = document.createElement('span')
+    titleElem.innerHTML = sessionTitle
+
+    let imgElem = document.createElement('img')
+    imgElem.src = sessionImageURL
+
+    let sessionElem = document.createElement('li')
+    sessionElem.appendChild(imgElem)
+    sessionElem.appendChild(titleElem)
+
+    sessionElem.onclick = () => {
+        window.location.href = '/playback?id=' + sessionID
+    }
+
+    return sessionElem
+
+}
+
+
+var sessionData = localStorage['sessionData']
+
+if (sessionData != undefined) {
+
+    sessionData = JSON.parse(sessionData)
+
+    for (let i = 0; i < sessionData.length; ++i) {
+
+        // add session to DOM
+        let session = sessionData[i]
+
+        let sessionElem = createSessionElemenet(
+            session[0],     // session ID
+            session[1],     // session title
+            session[2]      // session image
+        )
+
+        document.getElementById('session-list').appendChild(sessionElem)
+
+    }
+
+}
+else {
+    sessionData = []
 }
 
 
@@ -125,7 +187,7 @@ document.getElementById('btnSearch').onclick = function () {
     // send a search request to server
     let requestURL = "/search?keywords=" + document.getElementById('txtSearch').value.replace(' ', '%20') + '%20karaoke'
 
-    httpRequest(requestURL, (response) => {
+    httpGETRequest(requestURL, (response) => {
 
         let results = JSON.parse(response)
 
@@ -213,17 +275,67 @@ function stopVoiceRecording() {
     stopVisuaizer()
     voiceRecorder.stop((audioURL, audioBlob, audioChunks) => {
 
-        // upload recording to the server
-        var xhr = new XMLHttpRequest()
-        xhr.open('POST', '/upload', true)
-        var formData = new FormData();
-        formData.append("videoID", currentVideoID);
-        formData.append("voiceTrack", audioBlob);
-        xhr.send(formData)
+        // upload voice track to server and generate a session for playback
+        var formData = new FormData()
+        formData.append("videoID", currentVideoID)
+        formData.append("voiceTrack", audioBlob)
+
+        httpPOSTRequest('/upload', formData, (playbackID) => {
+
+            // add session to local storage
+            sessionData.push([playbackID, currentVideoTitle, currentVideoImageURL])
+            localStorage['sessionData'] = JSON.stringify(sessionData)
+
+            // show new session element to the user
+            let sessionElem = createSessionElemenet(
+                playbackID,             // session ID
+                currentVideoTitle,      // session title
+                currentVideoImageURL    // session image
+            )
+
+            document.getElementById('session-list').appendChild(sessionElem)
+
+        })
+
+
+        // // upload recording to the server
+        // var xhr = new XMLHttpRequest()
+        // xhr.open('POST', '/upload', true)
+        // var formData = new FormData()
+        // formData.append("videoID", currentVideoID)
+        // formData.append("voiceTrack", audioBlob)
+
+        // // server reply with playback id
+        // xhr.onreadystatechange = () => {
+
+        //     if (xhr.readyState == XMLHttpRequest.DONE) {
+
+        //         let playbackID = xhr.responseText
+
+        //         // add session to local storage
+        //         sessionData.push([playbackID, currentVideoTitle, currentVideoImageURL])
+        //         localStorage['sessionData'] = JSON.stringify(sessionData)
+
+        //         // show new session element to the user
+        //         let sessionElem = createSessionElemenet(
+        //             playbackID,             // session ID
+        //             currentVideoTitle,      // session title
+        //             currentVideoImageURL    // session image
+        //         )
+
+        //         document.getElementById('session-list').appendChild(sessionElem)
+
+        //     }
+        // }
+
+        // xhr.send(formData)
+
+
+        // record session
 
         console.log('Voice recording stopped!')
 
-        httpRequest(audioURL, (audioData) => {
+        httpGETRequest(audioURL, (audioData) => {
 
             audioContext.decodeAudioData(audioData, (audioBuffer) => {
                 voiceAudioBuffer = audioBuffer  // needed for replay

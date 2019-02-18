@@ -47,3 +47,9 @@ header{
     display: block;
     margin-top: -.5rem;
 }
+
+hr{
+    border: none;
+    background-color: lightgrey;
+    height: 1px;
+}

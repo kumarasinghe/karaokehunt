@@ -17,14 +17,15 @@
     <section>
 
         <div id="track-search-container">
-            <form action="#">
-                <input id="txtSearch" type="text" placeholder="Search Karaoke..." value="Obe Sina Langa"><button id="btnSearch" type="submit">Search</button>
+            <form onsubmit="return false">
+                <input id="txtSearch" type="text" placeholder="Search Karaoke..." value="Obe Sina Langa"><button
+                    id="btnSearch" type="submit">Search</button>
             </form>
             <div id="result-container">
+                <img id="earphones" src="img/headset.png">
                 <!-- search results go here -->
             </div>
         </div>
-
 
     </section>
 
@@ -40,6 +41,14 @@
         <input type="button" id="btnReplay" value="Replay" disabled>
     </div>
 
+    <!-- My Recordings -->
+    <div id="session-container">
+        <span id="session-container-title">My Recordings</span>
+        <hr>
+        <ul id="session-list">
+            <!-- session history goes here -->
+        </ul>
+    </div>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="js/Recorder.js"></script>

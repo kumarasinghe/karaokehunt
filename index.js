@@ -10,7 +10,6 @@ const port = 8080
 const YouTubeAPIKey = 'AIzaSyBKnHwOIrzzRTthmdubv5TKPqMVU94vIvc'
 const SEARCH_API_URL = '/search'
 const UPLOAD_API_URL = '/upload'
-const PLAYPACK_API_URL = '/playback.html'
 
 const server = express()
 
