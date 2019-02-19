@@ -74,16 +74,13 @@ function updateVoiceGain() {
     catch (e) { }
 }
 
+var voiceAudioBuffer
 httpRequest(voiceTrackURL, (audioData) => {
 
     audioContext.decodeAudioData(audioData, (audioBuffer) => {
 
-        sourceNode = audioContext.createBufferSource()
-        sourceNode.buffer = audioBuffer
-        gainNode = audioContext.createGain()
-        gainNode.gain.value = GAIN_PLAYBACK
-        sourceNode.connect(gainNode)
-        gainNode.connect(audioContext.destination)
+        voiceAudioBuffer = audioBuffer
+        document.getElementById('btnPlayStop').style.backgroundColor = '#4CBB17'
 
     }, (e) => {
         console.error("Error with decoding audio data" + e.err)
@@ -96,6 +93,13 @@ function playStop() {
 
     // start replay
     if (videoPlayer.isPlaying != true) {
+
+        sourceNode = audioContext.createBufferSource()
+        sourceNode.buffer = voiceAudioBuffer
+        gainNode = audioContext.createGain()
+        gainNode.gain.value = GAIN_PLAYBACK
+        sourceNode.connect(gainNode)
+        gainNode.connect(audioContext.destination)
 
         videoPlayer.playVideo()
         videoPlayer.isPlaying = true
