@@ -86,14 +86,13 @@ iframe{
 
 #control-container{
 
-    visibility:hidden;
-    display: block;
+    display: none;
     text-align: center;
     margin:1.5rem;
 
 }
 
-#control-container > input{
+#control-container > input[type="button"]{
 
     display: inline-block;
     border: none;
@@ -122,11 +121,10 @@ iframe{
 
 #session-container{
     border-radius:3px;
-    display: block;
+    display: none;
     max-width: 600px;
     padding: 15px;
     margin: auto;
-    visibility: hidden;
 }
 
 #session-container-title{
@@ -171,9 +169,14 @@ iframe{
 }
 
 #welcomeMessage{
-    height: 300px;
+    height: 100%;
     text-align: center;
     display: block;
     margin: auto;
-    transition: all 500ms;
+    transition: all 500ms linear;
+    opacity: 0;
+}
+
+#volumeSlider{
+    display: none;
 }

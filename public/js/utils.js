@@ -71,7 +71,7 @@ function createResultElement(title, thumbUrl, youtubeVideoId) {
         document.getElementById('btnReplay').style.backgroundColor = 'gainsboro'
 
         // show control box
-        document.getElementById('control-container').style.visibility = 'visible'
+        document.getElementById('control-container').style.display = 'block'
     }
 
 

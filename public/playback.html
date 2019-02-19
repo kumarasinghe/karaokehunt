@@ -9,7 +9,7 @@
 
 <body>
 
-    <header>
+    <header onclick="window.location = '/'">
         <span id="header-title">KaraokeHunt.com</span>
         <span id="header-tagline">Discover Your Inner Star</span>
     </header>
@@ -22,6 +22,7 @@
 
     <div id="control-container">
         <input type="button" id="btnPlayStop" value="Play" onclick="playStop()">
+        <input id="volumeSlider" class="slider" type="range" min="0" max="30" value="5" oninput="updateVoiceGain()">
     </div>
 
 

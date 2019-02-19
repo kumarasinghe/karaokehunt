@@ -39,6 +39,8 @@
     <div id="control-container">
         <input type="button" id="btnStartStop" value="Record" disabled>
         <input type="button" id="btnReplay" value="Replay" disabled>
+        <br>
+        <input id="volumeSlider" class="slider" type="range" min="0" max="30" value="5" oninput="updateVoiceGain()">
     </div>
 
     <!-- My Recordings -->

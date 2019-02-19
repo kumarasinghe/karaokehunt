@@ -40,7 +40,7 @@ if (sessionData.length > 0) {
 
     }
 
-    document.getElementById('session-container').style.visibility = 'visible'
+    document.getElementById('session-container').style.display = 'block'
 
 }
 else {
@@ -48,9 +48,11 @@ else {
 }
 
 
-// populate top tarcks #############################################################################################################
+// populate top tarcks and welcome messsage ######################################################################################
 
 if (topTracks.length) {
+
+    document.getElementById('welcomeMessage').style.opacity = 1
 
     // wait 2500ms
     setTimeout(() => {
@@ -253,7 +255,7 @@ function stopVoiceRecording() {
             )
 
             document.getElementById('session-list').appendChild(sessionElem)
-            document.getElementById('session-container').style.visibility = 'visible'
+            document.getElementById('session-container').style.display = 'block'
         })
 
     })
@@ -283,6 +285,15 @@ function stopVisuaizer() {
 // replay button ##################################################################################################################
 
 let sourceNode
+let gainNode
+
+function updateVoiceGain() {
+    try {
+        let value = document.getElementById('volumeSlider').value
+        gainNode.gain.value = value
+    }
+    catch (e) { }
+}
 
 document.getElementById('btnReplay').onclick = () => {
 
@@ -312,7 +323,7 @@ document.getElementById('btnReplay').onclick = () => {
                     // start playing voice
                     sourceNode = audioContext.createBufferSource()
                     sourceNode.buffer = voiceAudioBuffer
-                    let gainNode = audioContext.createGain()
+                    gainNode = audioContext.createGain()
                     gainNode.gain.value = GAIN_PLAYBACK
                     sourceNode.connect(gainNode)
                     gainNode.connect(audioContext.destination)
@@ -323,6 +334,9 @@ document.getElementById('btnReplay').onclick = () => {
                 }
 
             }, 100)
+
+            // show volume slider
+            document.getElementById('volumeSlider').style.display = "block"
 
         }
         //stop replay
@@ -338,6 +352,9 @@ document.getElementById('btnReplay').onclick = () => {
             // enable record
             document.getElementById("btnStartStop").disabled = false
             document.getElementById('btnStartStop').style.backgroundColor = 'red'
+
+            // hide volume slider
+            document.getElementById('volumeSlider').style.display = "none"
 
         }
 

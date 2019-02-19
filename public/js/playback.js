@@ -64,13 +64,23 @@ window.onYouTubePlayerAPIReady = function () {
 // load voice track
 let audioContext = new AudioContext()
 let sourceNode
+let gainNode
+
+function updateVoiceGain() {
+    try {
+        let value = document.getElementById('volumeSlider').value
+        gainNode.gain.value = value
+    }
+    catch (e) { }
+}
+
 httpRequest(voiceTrackURL, (audioData) => {
 
     audioContext.decodeAudioData(audioData, (audioBuffer) => {
 
         sourceNode = audioContext.createBufferSource()
         sourceNode.buffer = audioBuffer
-        let gainNode = audioContext.createGain()
+        gainNode = audioContext.createGain()
         gainNode.gain.value = GAIN_PLAYBACK
         sourceNode.connect(gainNode)
         gainNode.connect(audioContext.destination)
