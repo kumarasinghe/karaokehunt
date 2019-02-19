@@ -21,7 +21,7 @@ function deselectResults() {
 
 var sessionData = localStorage['sessionData']
 
-if (sessionData.length > 0) {
+if (sessionData != undefined && sessionData.length > 0) {
 
     sessionData = JSON.parse(sessionData)
 
