@@ -1,7 +1,7 @@
 #track-search-container{
 
     display: block;
-    max-width: 600px;
+    max-width: 800px;
     padding: 15px;
     margin: auto;
 
@@ -37,10 +37,11 @@
 
 #result-container{
 
-    overflow-y: scroll;
+    overflow-y: auto;
     transition: height 1s;
     text-align: center;
     background-color: rgba(0,0,0,.03);
+    max-height: 40%;
     
 }
 
@@ -49,7 +50,7 @@
     width: 200px;
     border-radius: 3px;
     box-shadow: 0 2px 5px rgba(0,0,0,.2);
-    margin: .5rem;
+    margin: .4rem;
     cursor: pointer;
 }
 
@@ -84,6 +85,7 @@ iframe{
 }
 
 #control-container{
+
     visibility:hidden;
     display: block;
     text-align: center;
@@ -135,7 +137,7 @@ iframe{
     list-style: none;
     padding: 0;
     margin: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 100px;
 }
 
@@ -168,9 +170,10 @@ iframe{
     border-radius: 2px;
 }
 
-#earphones{
+#welcomeMessage{
     height: 300px;
     text-align: center;
     display: block;
     margin: auto;
+    transition: all 500ms;
 }

@@ -8,20 +8,18 @@ const formidable = require('formidable')
 
 const port = 8080
 const YouTubeAPIKey = 'AIzaSyBKnHwOIrzzRTthmdubv5TKPqMVU94vIvc'
-const SEARCH_API_URL = '/search'
-const UPLOAD_API_URL = '/upload'
 
 const server = express()
 
 const PUBLIC_DIR = path.join(__dirname, '/public')
-server.use(express.static(PUBLIC_DIR, {'extensions': ['html']}))
+server.use(express.static(PUBLIC_DIR, { 'extensions': ['html'] }))
 server.listen(port)
 console.log('Listening to port ' + port + '...' + '\n')
 
 
-server.get(SEARCH_API_URL, (req, res) => {
+server.get('/search', (req, res) => {
 
-    let requestURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + req.query.keywords.replace(/ /g, '%20') + '&type=video&videoEmbeddable=true&key=' + YouTubeAPIKey
+    let requestURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + req.query.keywords.replace(/ /g, '%20') + '&maxResults=15&type=video&videoEmbeddable=true&key=' + YouTubeAPIKey
 
     console.log('Video search request:' + requestURL + '\n')
 
@@ -61,7 +59,7 @@ server.get(SEARCH_API_URL, (req, res) => {
 })
 
 
-server.post(UPLOAD_API_URL, function (req, res) {
+server.post('/upload', function (req, res) {
 
     var form = new formidable.IncomingForm()
 

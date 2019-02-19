@@ -9,7 +9,7 @@
 
 <body>
 
-    <header>
+    <header onclick="window.location = '/'">
         <span id="header-title">KaraokeHunt.com</span>
         <span id="header-tagline">Discover Your Inner Star</span>
     </header>
@@ -18,11 +18,11 @@
 
         <div id="track-search-container">
             <form onsubmit="return false">
-                <input id="txtSearch" type="text" placeholder="Search Karaoke..." value="Obe Sina Langa"><button
+                <input id="txtSearch" type="text" placeholder="Search Karaoke..." value=""><button
                     id="btnSearch" type="submit">Search</button>
             </form>
             <div id="result-container">
-                <img id="earphones" src="img/headset.png">
+                <img id="welcomeMessage" src="img/headset.png">
                 <!-- search results go here -->
             </div>
         </div>
@@ -51,9 +51,11 @@
     </div>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/Recorder.js"></script>
     <script src="js/Visualizer.js"></script>
     <script src="js/config.js"></script>
+    <script src="js/toptracks.js"></script>
     <script src="js/index.js"></script>
     <script src="https://www.youtube.com/player_api"></script>
 
