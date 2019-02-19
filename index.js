@@ -97,7 +97,7 @@ server.post('/upload', function (req, res) {
                     }
                     else {
                         console.log('Voice track successfully uploaded:' + uploadPath + '\n')
-                        let playbackID = videoID + '|' + uplaodID
+                        let playbackID = videoID + '+' + uplaodID
                         res.send(playbackID)
                         console.log('Served playback ID to client:' + playbackID)
                         res.end()

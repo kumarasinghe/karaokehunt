@@ -34,7 +34,7 @@ function httpRequest(url, callback, isBuffer) {
 // load youtube video and voice tarck ##############################
 
 // split youtube video id and upload id from browser url
-let idList = queryURLParam('id').split('|')
+let idList = queryURLParam('id').split('+')
 // idList = [youtube video id, upload id]
 
 // validate playback url
